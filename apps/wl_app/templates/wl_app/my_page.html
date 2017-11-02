@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wishlist Dashboard</title>
+    <style>
+      table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+      }
+
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+</style>
+  </head>
+  <body>
+    <a href="/logout">Logout</a>
+
+    <h1>Welcome, {{request.session.name}}!</h1>
+
+    <div>
+      <h2>Your Wish List</h2>
+
+      
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Added By</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+      {% for join in joins %}
+        <tr>
+          <td><a href="wish_item/{{join.wish.id}}">{{join.wish.item}}</a></td>
+          <td>{{join.wish.wisher.name}}</td>
+          <td>{{join.wish.created_at}}</td>/
+          {% if join.wish.wisher.id == join.user.id %}
+                <td><a href="delete/{{join.wish.id}}">Delete</a></td>
+              {% else %}
+                <td><a href="remove/{{join.wish.id}}">Remove from my wishlist</a></td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </table>
+
+      <h2>Other Users' Wish List</h2>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Added By</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+        {% for wish in wishes %}
+          <tr>
+            <td><a href="wish_item/{{wish.id}}"></a>{{wish.item}}</td>
+            <td>{{wish.wisher.name}}</td>
+            <td>{{wish.created_at}}</td>
+            <td><a href="join/{{wish.id}}">Add to my Wishlist</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+      <a href="/add">Add Item</a>
+
+    </div>
+  </body>
+</html>

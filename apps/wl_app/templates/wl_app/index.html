@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login/Registration</title>
+  </head>
+  <body>
+    <div>
+
+        <form class="" action="/register" method="post">
+          <h2>Register</h2>
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="Name"><br>
+          <input type="text" name="username" placeholder="Username"><br>
+          <input type="password" name="password" placeholder="Password"><br>
+          <input type="password" name="confirm_pw" placeholder="Confirm Password"><br>
+          <input type="date" name="date_hired" placeholder="Date Hired"><br>
+          <input type="submit" value="Register"><br>
+        </form>
+
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+
+        <form class="" action="/login" method="post">
+          <h2>Login</h2>
+          {% csrf_token %}
+          <input type="text" name="username" placeholder="Username"><br>
+          <input type="password" name="password" placeholder="Password"><br>
+          <input type="submit" value="Login"><br>
+        </form>
+
+    </div>
+  </body>
+</html>
